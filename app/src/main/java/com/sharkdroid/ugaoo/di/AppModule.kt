@@ -7,6 +7,13 @@ import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.storage.FirebaseStorage
+import com.sharkdroid.ugaoo.data.LocalUserManagerImp
+import com.sharkdroid.ugaoo.domain.manager.LocalUserManager
+import com.sharkdroid.ugaoo.domain.usecases.AllUseCases
+import com.sharkdroid.ugaoo.domain.usecases.loginentry.ReadLoginEntry
+import com.sharkdroid.ugaoo.domain.usecases.loginentry.SaveLoginEntry
+import com.sharkdroid.ugaoo.domain.usecases.splashrecord.ReadSplashEntry
+import com.sharkdroid.ugaoo.domain.usecases.splashrecord.SaveSplashRecord
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -29,7 +36,7 @@ object AppModule {
     @Provides
     @Singleton
 
-    fun provideFirebaseStorage():FirebaseStorage{
+    fun provideFirebaseStorage(): FirebaseStorage {
 
         return FirebaseStorage.getInstance()
 
@@ -43,11 +50,31 @@ object AppModule {
 
     @Provides
     @Singleton
-    fun provideFirebaseAuth():FirebaseAuth{
+    fun provideFirebaseAuth(): FirebaseAuth {
 
         return FirebaseAuth.getInstance()
     }
 
+    @Provides
+    @Singleton
+
+    fun provideLocalUserManager(@ApplicationContext context: Context):LocalUserManager{
+
+        return LocalUserManagerImp(context)
+
+    }
+
+    @Provides
+    @Singleton
+    fun provideAllUseCase(localUserManager: LocalUserManager): AllUseCases {
+
+        return AllUseCases(
+            readLoginEntry = ReadLoginEntry(localUserManager),
+            saveLoginEntry = SaveLoginEntry(localUserManager),
+            readSplashEntry = ReadSplashEntry(localUserManager),
+            saveSplashRecord = SaveSplashRecord(localUserManager)
+        )
+    }
 
 
 }

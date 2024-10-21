@@ -18,12 +18,14 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 import com.sharkdroid.ugaoo.domain.model.UserAuth
+import com.sharkdroid.ugaoo.domain.usecases.AllUseCases
 
 @HiltViewModel
 class LoginScreenViewModel @Inject constructor(
     private val firebaseAuth: FirebaseAuth,
     private val databaseReference: FirebaseDatabase,
-    private val oneTapClient: SignInClient
+    private val oneTapClient: SignInClient,
+    private val allUseCases: AllUseCases
 ) : ViewModel() {
 
     private val userLiveData = MutableLiveData<FirebaseUser?>()
@@ -42,6 +44,9 @@ class LoginScreenViewModel @Inject constructor(
                             val user = dataTask.result.getValue(UserAuth::class.java)
                             if (user != null && user.email == email) {
                                 onResult(true, null)
+                                viewModelScope.launch {
+                                    allUseCases.saveLoginEntry()
+                                }
                             } else {
                                 onResult(false, "User data does not match.")
                             }
@@ -93,6 +98,10 @@ class LoginScreenViewModel @Inject constructor(
                         if (task.isSuccessful) {
                             userLiveData.postValue(firebaseAuth.currentUser)
                             loginSuccessLiveData.postValue(true)
+                            viewModelScope.launch {
+
+                                allUseCases.saveLoginEntry()
+                            }
                         } else {
                             Log.d("SignInResult", "Firebase sign-in failed: ${task.exception?.localizedMessage}")
                             errorLiveData.postValue(task.exception?.localizedMessage)

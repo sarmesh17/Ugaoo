@@ -9,16 +9,17 @@ import com.sharkdroid.ugaoo.presentation.ui.addplantform.AddPlantForm
 import com.sharkdroid.ugaoo.presentation.ui.createaccountscreen.CreateAccount
 import com.sharkdroid.ugaoo.presentation.ui.homescreen.UgaooHomeScreen
 import com.sharkdroid.ugaoo.presentation.ui.login.LoginScreen
+import com.sharkdroid.ugaoo.presentation.ui.spalshscreen.SplashScreen
 import com.sharkdroid.ugaoo.presentation.viewmodels.AddPlantViewModel
 import com.sharkdroid.ugaoo.presentation.viewmodels.LoginScreenViewModel
 import com.sharkdroid.ugaoo.presentation.viewmodels.SignUpScreenViewModel
 
 @Composable
-fun UgaooNavigationSystem(){
+fun UgaooNavigationSystem(startDestination: Routes) {
 
     val navController = rememberNavController()
 
-    NavHost(navController = navController, startDestination = Routes.LoginScreen ) {
+    NavHost(navController = navController, startDestination = startDestination ) {
 
         composable<Routes.LoginScreen> {
             val loginScreenViewModel:LoginScreenViewModel= hiltViewModel()
@@ -39,6 +40,9 @@ fun UgaooNavigationSystem(){
             val viewModel:AddPlantViewModel= hiltViewModel()
             AddPlantForm(navController,viewModel)
 
+        }
+        composable<Routes.SplashScreen> {
+            SplashScreen()
         }
 
     }

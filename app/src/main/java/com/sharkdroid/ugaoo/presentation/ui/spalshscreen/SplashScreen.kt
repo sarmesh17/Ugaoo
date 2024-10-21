@@ -12,6 +12,8 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -20,16 +22,23 @@ import androidx.compose.ui.res.fontResource
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.Font
 import androidx.compose.ui.text.font.FontFamily
+import androidx.compose.ui.text.font.FontStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.sharkdroid.ugaoo.R
 import com.sharkdroid.ugaoo.presentation.common.UgaooButton
+import com.sharkdroid.ugaoo.presentation.navigation.UgaooNavigationSystem
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
 
 @Composable
 @Preview(showSystemUi = true)
 fun SplashScreen() {
+
+    val coroutineScope= rememberCoroutineScope()
 
 
     Box(modifier = Modifier.fillMaxSize()) {
@@ -62,6 +71,7 @@ fun SplashScreen() {
                     text = "Find your favorite",
                     fontSize = 25.sp,
                     color = Color.White,
+                    fontStyle = FontStyle.Italic,
                     fontWeight = FontWeight.Bold, modifier = Modifier.padding(start = 5.dp)
                 )
 
@@ -69,6 +79,8 @@ fun SplashScreen() {
                     text = "plants on our shop",
                     fontSize = 25.sp,
                     color = Color.White,
+                    fontStyle = FontStyle.Italic,
+
                     fontWeight = FontWeight.Bold
                 )
 
@@ -78,6 +90,7 @@ fun SplashScreen() {
 
 
     }
+
 
 
 }

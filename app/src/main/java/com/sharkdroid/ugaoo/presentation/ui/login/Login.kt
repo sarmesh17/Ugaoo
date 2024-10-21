@@ -48,6 +48,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavHostController
 import com.sharkdroid.ugaoo.R
+import com.sharkdroid.ugaoo.domain.usecases.AllUseCases
 import com.sharkdroid.ugaoo.presentation.common.UgaooButton
 import com.sharkdroid.ugaoo.presentation.navigation.Routes
 import com.sharkdroid.ugaoo.presentation.viewmodels.LoginScreenViewModel
@@ -238,6 +239,7 @@ fun LoginScreen(navController: NavHostController, loginScreenViewModel: LoginScr
                             )
                             .clickable {
                                 loginScreenViewModel.startSignIn()
+
 
                             }
                     ) {

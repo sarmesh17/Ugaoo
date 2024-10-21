@@ -2,4 +2,7 @@
 <resources>
 
     <style name="Theme.Ugaoo" parent="android:Theme.Material.Light.NoActionBar" />
+
+    <style name="SplashTheme" parent="android:Theme.Material.Light.NoActionBar">
+    </style>
 </resources>
