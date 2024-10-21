@@ -5,6 +5,7 @@ import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.viewModels
 import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import com.google.firebase.FirebaseApp
@@ -40,8 +41,8 @@ class MainActivity : ComponentActivity() {
 
                 }else{
 
-                    val startDestination= mainViewModel.startDestination
-                    UgaooNavigationSystem(startDestination)
+                    val startDestination= mainViewModel.startDestination.collectAsState()
+                    UgaooNavigationSystem(startDestination.value)
                 }
 
 
